@@ -1,0 +1,13 @@
+1. We haven't used docker compose in this case
+2. I have used "docker build -t mahesh/docker_react_test ." command to build image
+    a) "-t" flag is used to make tags
+    b) in my case it is <username>/<tag_name>
+    c) usernmae is generally for creating acc in "dockerhub", so that the image can be push/pull by users
+    d) "." is used as of the respective place of "Dockerfile"
+3. To make container, I used " docker run -p 3000:80 bbaef5faf80d ", which will run the docker image
+    a) I have exposed port 3000 for the react app in the "Dockerfile", but it won't be accessible
+    b) For that to work, we can map our system port with the docker exposed port called port forwarding
+    c) This can be done using "-p" flag, where the syntax is <local>:<container>
+    d) even if we have exposed port 3000 in the container, it is "80", bcoz, nginx default port is "80"
+    e) if we wouldn't have built the react app, rather only served it using "npm start", then it would have "3000:3000"
+4. We have used "dockerignore" file so that it would not copy the "node_modules" when the "COPY . ." command runs by Docker, in "Dockerfile"
