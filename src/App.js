@@ -9,11 +9,11 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <p>
+        {/* <p>
           Env Value: {process.env.REACT_APP_TEST}
-        </p>
+        </p> */}
         <p>
-          Env Value 2: {Window?.ENV_VARS?.REACT_APP_TEST}
+          Env Value 2: {process.env.NODE_ENV !== 'production' ? process.env.REACT_APP_TEST : Window?.ENV_VARS?.REACT_APP_TEST}
         </p>
         <a
           className="App-link"
