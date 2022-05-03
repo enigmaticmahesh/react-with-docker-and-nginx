@@ -1,8 +1,8 @@
-1. We haven't used docker compose in this case
+1. We haven't used docker compose in this case, (first used without docker compose upto step #4 and then also tried docker compose 😜)
 2. I have used "docker build -t mahesh/docker_react_test ." command to build image
     a) "-t" flag is used to make tags
     b) in my case it is <username>/<tag_name>
-    c) usernmae is generally for creating acc in "dockerhub", so that the image can be push/pull by users
+    c) usernmae is generally for creating a/c in "dockerhub", so that the image can be push/pull by users
     d) "." is used as of the respective place of "Dockerfile"
 3. To make container, I used " docker run -p 3000:80 bbaef5faf80d ", which will run the docker image
     a) I have exposed port 3000 for the react app in the "Dockerfile", but it won't be accessible
@@ -11,3 +11,23 @@
     d) even if we have exposed port 3000 in the container, it is "80", bcoz, nginx default port is "80"
     e) if we wouldn't have built the react app, rather only served it using "npm start", then it would have "3000:3000"
 4. We have used "dockerignore" file so that it would not copy the "node_modules" when the "COPY . ." command runs by Docker, in "Dockerfile"
+5. Docker compose can be used to run mutliple containers at once or simultaneously
+6. in our case, we have taken the build that we have created locally i.e., "mahesh/docker_react", "latest" is just the recent version that docker assigns automatically as a default
+7. Under "services", we can define/provide multiple services that we want to run on using the "yml" file.
+8. As of now, we have provided only one service, which is our frontend (or react app)
+9. "test_app" is the name of the service (can be anything)
+10. "container_name" will be any name that you want to assign the container which will be created when the test_app service will run
+11. "ports" will be the same as step #3, instead of defining in the docker run command, we have defined in the compose command
+12. "env_file" is where we can provide any environment file to the docker container
+13. volumes are used to share certain files or anything between multiple containers
+14. Our use case was to write all the env variables supplied to the container to a .js file in the app just before docker starts
+15. So, there is a directory in every docker container by default called "docker-entrypoint.d", which gets checked before docker container starts
+16. There is also a file called "docker-entrypoint.sh" which acts as a entrypoint for the docker conatiner, before docker starts, it executes this shell script file
+17. Inside this file, the script checks for any file within the "docker-entrypoint.d", and executes them if they are executable, then it starts/runs command for starting the container
+18. we have a script file called "env.sh" locally, which when executed collects all the env variables with "REACT_APP" as the starting name and writes into a file called "env_config.js"
+19. It makes a window variable called "ENV_VARS", as an object and assigns all the variables as a key value pair
+20. This ENV_VARS can be accessed in the app to use all the env variables
+21. we could have used the default env variables, but we would have to build and run again and again
+22. This solution makes sure that we have to build once and then we can run any no. of containers using that image with different env variables
+23. So, in docker left side of the column always acts as a local and the right side of it acts as for the container
+24. Similarlly as that of port, so, we are taking that "env.sh" from local to the container "docker-entrypoint.d/env.sh"

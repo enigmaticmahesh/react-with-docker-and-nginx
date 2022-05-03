@@ -3,7 +3,10 @@ services:
   test_app:
     image: mahesh/docker_react:latest
     container_name: test_react_app
+    volumes:
+      - "./env.sh:/docker-entrypoint.d/env.sh"
     ports:
       - "3000:80"
     env_file:
       - ./.env
+    

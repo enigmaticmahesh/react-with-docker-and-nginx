@@ -12,6 +12,9 @@ function App() {
         <p>
           Env Value: {process.env.REACT_APP_TEST}
         </p>
+        <p>
+          Env Value 2: {Window?.ENV_VARS?.REACT_APP_TEST}
+        </p>
         <a
           className="App-link"
           href="https://reactjs.org"
